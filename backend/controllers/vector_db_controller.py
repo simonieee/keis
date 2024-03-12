@@ -1,6 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, APIRouter
+from models.logger import create_logger
 from models.vector_db import VectorDB
 import json
+
+logger = create_logger("vector_db_controller", "localhost", 9999)
 
 vector_db_router = APIRouter(tags=["Chroma Vector DB 관리"])
 
@@ -9,6 +12,8 @@ async def create_db(model_name: str, db_name: str):
     try:
         vector_db = VectorDB(db_name=db_name, model_name=model_name)
         result = vector_db.create_db()
+        logger.info(result)  
+        logger.info(f"create_db: {model_name}, {db_name}")  
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -18,6 +23,7 @@ async def db_status(db_name: str):
     try:
         vector_db = VectorDB( db_name=db_name)
         result =  vector_db.db_status()
+        logger.info(f"status_db: {db_name}")
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -30,6 +36,7 @@ async def data_upload(db_name: str,model_name:str, file: UploadFile = File(...))
         data = json.loads(contents)
         metadata_list = vector_db.generate_metadata(data)
         result = vector_db.data_upload(metadata_list=metadata_list)
+        logger.info(f"data_upload: {db_name}, {model_name}, {result}")
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
