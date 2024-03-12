@@ -1,0 +1,109 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "no-console": [
+      "off",
+      {
+        "allow": ["clear"]
+      }
+    ],
+    "semi": ["error", "always"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "keyword-spacing": [
+      "error",
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "eqeqeq": ["error", "always"],
+    "space-infix-ops": "error",
+    "comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "brace-style": "error",
+    "curly": "error",
+    "handle-callback-err": "error",
+    "no-multiple-empty-lines": "error",
+    "block-spacing": "error",
+    "comma-style": ["error", "last"],
+    "func-call-spacing": ["error", "never"],
+    "key-spacing": [
+      "error",
+      {
+        "beforeColon": false
+      }
+    ],
+    "new-parens": "error",
+    "constructor-super": "error",
+    "no-array-constructor": "error",
+    "no-dupe-keys": "error",
+    "no-duplicate-imports": [
+      "error",
+      {
+        "includeExports": true
+      }
+    ],
+    "no-irregular-whitespace": "error",
+    "no-multi-spaces": "error",
+    "no-trailing-spaces": [
+      "error",
+      {
+        "skipBlankLines": true
+      }
+    ],
+    "no-whitespace-before-property": "error",
+    "padded-blocks": ["error", "never"],
+    "rest-spread-spacing": ["error", "never"],
+    "semi-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "space-before-blocks": "error",
+    "space-in-parens": ["error", "never"],
+    "space-unary-ops": "error",
+    "spaced-comment": ["error", "always"],
+    "template-curly-spacing": ["error", "never"],
+    "use-isnan": [
+      "error",
+      {
+        "enforceForSwitchCase": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "quotes": ["error", "single"],
+    "no-undefined": "error",
+    "no-eq-null": "error",
+    "no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
+}

@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --text-transition-duration: 50ms;
+    --bg-transition-duration: 100ms;
+  }
+
+  html {
+    @apply font-sans; /* 폰트 적용 */
+  }
+  body {
+    background: #f1f1f1;
+  }
+  body * {
+    transition-property: color, background-color;
+    transition-duration: var(--text-transition-duration), var(--bg-transition-duration);
+  }
+  h1 {
+    @apply text-xl font-medium capitalize;
+  }
+}
+
+.link {
+  @apply flex cursor-default items-center gap-6 rounded-md p-2.5 font-medium duration-300 md:cursor-pointer;
+}
+
+.active {
+  @apply bg-blue-100 text-blue-600;
+}
+
+/* 스크롤바 스타일 설정 */
+/* Hide the scrollbar by default */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+/* Show the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.dark-transition,
+.light-transition {
+  transition:
+    background-color 1s ease,
+    color 1s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html,
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 700px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  font-weight: 100;
+  src: url('./assets/font/SpoqaHanSansNeo-Thin.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  font-weight: 400; /* Regular */
+  src: url('./assets/font/SpoqaHanSansNeo-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  font-weight: 500; /* Medium */
+  src: url('./assets/font/SpoqaHanSansNeo-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  font-weight: 700; /* Bold */
+  src: url('./assets/font/SpoqaHanSansNeo-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  font-weight: 300; /* Light */
+  src: url('./assets/font/SpoqaHanSansNeo-Light.otf') format('opentype');
+}
