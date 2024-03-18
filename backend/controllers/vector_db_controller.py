@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, APIRouter
+from fastapi import FastAPI, UploadFile, File, HTTPException, APIRouter, Form
 from models.logger import create_logger
 from models.vector_db import VectorDB
 import json
@@ -29,7 +29,7 @@ async def db_status(db_name: str):
         raise HTTPException(status_code=500, detail=str(e))
     
 @vector_db_router.post("/data_upload/", description="Vector DB에 데이터 업로드")
-async def data_upload(db_name: str,model_name:str, file: UploadFile = File(...)):
+async def data_upload(db_name: str=Form(...), model_name:str=Form(...), file: UploadFile = File(...)):
     try:
         vector_db = VectorDB(db_name=db_name, model_name=model_name)
         contents = await file.read()
@@ -46,6 +46,7 @@ async def delete_db(db_name: str):
     try:
         vector_db = VectorDB(db_name=db_name)
         result = vector_db.delete_db()
+        logger.info(f"delete_db: {db_name}, {result}")
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -56,6 +57,7 @@ async def search_vector(db_name: str, model_name: str,text: str):
     try:
         vector_db = VectorDB(db_name=db_name, model_name=model_name)
         result = vector_db.search_text(text)
+        logger.info(f"search_vector: {db_name}, {model_name}, {text}, {result}")
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -89,6 +91,7 @@ async def similarity_verification(db_name: str, model_name: str, file: UploadFil
             "highlow_data": highlow_data,
             "search_result": search_result
         }
+        logger.info(f"similarity_verification: {db_name}, {model_name}, {result}")
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

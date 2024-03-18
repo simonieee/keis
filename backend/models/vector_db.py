@@ -17,8 +17,8 @@ class VectorDB:
         if not self.model_name:
             return {"message": "모델 이름을 입력해주세요."}
         try:
-            self.client.get_or_create_collection(name=self.db_name,embedding_function=self.ef)
-            return {"message": "Vector DB created successfully!"}
+            result = self.client.get_or_create_collection(name=self.db_name,embedding_function=self.ef)
+            return result
         except Exception as e:
             return {"message": str(e)}
         

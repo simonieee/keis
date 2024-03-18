@@ -1,6 +1,8 @@
 import { Button, Divider, Input, Space, Tooltip, Typography } from 'antd';
 import { CommonProps, SelectModelTypes } from '../type';
 import sample from '@src/assets/data/new_data.json';
+import io from 'socket.io-client';
+import { useEffect, useState } from 'react';
 const { Text } = Typography;
 const models = [
   {
@@ -69,7 +71,21 @@ const Model: React.FC<CommonProps> = ({
   /* Router */
   /* State */
   console.log(selectedModels);
+  const [logs, setLogs] = useState<string[]>([]);
   /* Hooks */
+  useEffect(() => {
+    const socket = io('http://localhost:9999');
+
+    socket.on('connect', () => {
+      console.log('connect');
+    });
+
+    socket.on('log', (message: string) => {
+      setLogs((prev) => [...prev, message]);
+    });
+  }, []);
+  console.log(logs);
+
   /* Functions */
   const handleModelClick = (model: SelectModelTypes) => {
     setSelectedModels((prev) => {
@@ -178,6 +194,21 @@ const Model: React.FC<CommonProps> = ({
             </div>
           )}
         </div>
+        {logs && logs.length > 0 ? (
+          <div className="mb-4">
+            <h2 className="mr-4">Logs</h2>
+            <pre
+              className="rounded-lg bg-gray-100 p-4"
+              style={{ fontSize: '12px', maxHeight: '600px', overflowY: 'auto' }}
+            >
+              {logs.map((log, idx) => (
+                <div key={idx}>{log}</div>
+              ))}
+            </pre>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="flex justify-end">
           {selectedData !== null ? (
             <Button

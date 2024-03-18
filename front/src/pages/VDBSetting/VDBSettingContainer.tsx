@@ -19,41 +19,13 @@ const VDBSettingContainer = () => {
   /* Functions */
   const createDbAndDataUpload = async () => {
     try {
-      // const dbCreationResults = await Promise.all(
-      //   selectedModels.map(async (model) => {
-      //     const dbName = model.symbol + '-' + selectedData + 1;
-      //     console.log(model.modelName, dbName);
-      //     const createDbResponse = await ChromaDbApi.createDb(model.modelName, dbName);
-      //     if (createDbResponse.status !== 200) {
-      //       // 상태 코드를 확인하거나 응답을 검사하여 성공 여부 판단
-      //       throw new Error(`DB creation failed for model: ${model.modelName}, dbName: ${dbName}`);
-      //     }
-      //     return { modelName: model.modelName, dbName };
-      //   })
-      // );
-
-      // console.log(dbCreationResults);
-
-      // // 모든 DB 생성이 성공한 후, 각 DB에 파일 업로드
-      // for (const { modelName, dbName } of dbCreationResults) {
-      //   const formData = new FormData();
-      //   formData.append(
-      //     'file',
-      //     new Blob([JSON.stringify(sample[selectedData].data)], { type: 'application/json' })
-      //   );
-      //   formData.append('db_name', dbName);
-      //   formData.append('model_name', modelName);
-
-      //   const uploadResponse = await ChromaDbApi.dataUpload(formData);
-      //   console.log(uploadResponse);
-      // }
       await Promise.all(
         selectedModels.map(async (i) => {
           const dbName = i.symbol + '-' + selectedData;
           console.log(i.modelName, dbName);
           const createDb = await ChromaDbApi.createDb(i.modelName, dbName);
           console.log(createDb);
-          if (createDb.db_name) {
+          if (createDb.name) {
             const formData = new FormData();
             formData.append(
               'file',
